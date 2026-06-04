@@ -1,0 +1,269 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 3rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.app__header {
+  text-align: center;
+  max-width: 640px;
+}
+
+.app__title {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.app__subtitle {
+  margin: 0;
+  color: var(--muted, #6b7280);
+  font-size: 1rem;
+}
+
+.diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.diagram__stage {
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+/* Invisible hover zone keeps choices visible across the gap below the node */
+.hover-zone {
+  fill: transparent;
+  pointer-events: all;
+}
+
+/* Main model box (foundation / unified / cascaded sub-boxes) */
+.model-box__rect {
+  fill: var(--node-fill, #1e293b);
+  stroke: var(--node-stroke, #475569);
+  stroke-width: 2;
+  transition: stroke 0.15s ease, fill 0.15s ease;
+}
+
+.model:hover .model-box__rect {
+  stroke: var(--accent, #38bdf8);
+}
+
+.model-box__label {
+  fill: var(--node-text, #f8fafc);
+  font-size: 34px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.model-box__hint {
+  fill: var(--muted, #94a3b8);
+  font-size: 24px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.model-box__caption {
+  fill: var(--accent, #38bdf8);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* Arrow connecting cascaded sub-boxes / pipeline stages */
+.model-arrow {
+  stroke: var(--accent, #38bdf8);
+  stroke-width: 5;
+}
+
+.arrowhead {
+  fill: var(--accent, #38bdf8);
+}
+
+/* Pipeline stage labels (smaller per-node boxes) */
+.pipeline-box__label {
+  fill: var(--node-text, #f8fafc);
+  font-size: 26px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* Image thumbnails (RGB swatch / latent feature map) */
+.thumbnail__cell {
+  stroke: none;
+}
+
+.thumbnail__frame {
+  fill: none;
+  stroke: var(--node-stroke, #475569);
+  stroke-width: 2;
+}
+
+.thumbnail__bg {
+  fill: var(--node-fill, #1e293b);
+}
+
+.thumbnail__flow-vector {
+  stroke: var(--accent, #38bdf8);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.thumbnail__label {
+  fill: var(--muted, #94a3b8);
+  font-size: 20px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* Generic model I/O ports (video + language in, robot out) */
+.io-port__emoji {
+  font-size: 64px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.io-port__label {
+  fill: var(--muted, #94a3b8);
+  font-size: 22px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* Stacked image frames for the video port */
+.frame__rect {
+  fill: var(--node-fill, #1e293b);
+  stroke: var(--node-stroke, #475569);
+  stroke-width: 2;
+}
+
+.frame__rect--front {
+  stroke: var(--accent, #38bdf8);
+}
+
+.frame__sun {
+  fill: #fbbf24;
+}
+
+.frame__mountains {
+  fill: var(--accent, #38bdf8);
+}
+
+.io-arrow {
+  stroke: var(--node-stroke, #475569);
+  stroke-width: 4;
+}
+
+/* Optional (greyed-out) ports: present but may or may not be active */
+.io-port--optional {
+  opacity: 0.4;
+}
+
+.io-arrow--optional {
+  stroke: var(--node-stroke, #475569);
+  stroke-width: 3;
+  stroke-dasharray: 8 7;
+  opacity: 0.5;
+}
+
+.arrowhead-muted {
+  fill: var(--node-stroke, #475569);
+  opacity: 0.6;
+}
+
+/* Breadcrumb chips (stacked locked choices) */
+.chip {
+  cursor: pointer;
+}
+
+.chip__rect {
+  fill: var(--choice-fill, #0f172a);
+  stroke: var(--node-stroke, #475569);
+  stroke-width: 2;
+  transition: stroke 0.15s ease, fill 0.15s ease;
+}
+
+.chip:hover .chip__rect,
+.chip:focus-visible .chip__rect {
+  stroke: var(--accent, #38bdf8);
+  fill: rgba(56, 189, 248, 0.12);
+}
+
+.chip__label {
+  fill: var(--node-text, #e2e8f0);
+  font-size: 22px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+/* Hover-revealed choice buttons */
+.choice {
+  cursor: pointer;
+}
+
+.choice__rect {
+  fill: var(--choice-fill, #0f172a);
+  stroke: var(--accent, #38bdf8);
+  stroke-width: 2;
+  transition: fill 0.15s ease;
+}
+
+.choice:hover .choice__rect,
+.choice:focus-visible .choice__rect,
+.choice--active .choice__rect {
+  fill: var(--accent, #38bdf8);
+}
+
+.choice__label {
+  fill: var(--node-text, #e2e8f0);
+  font-size: 18px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+.choice:hover .choice__label,
+.choice:focus-visible .choice__label,
+.choice--active .choice__label {
+  fill: #0f172a;
+}
+
+/* Reset control */
+.reset-button {
+  appearance: none;
+  border: 1px solid var(--node-stroke, #475569);
+  background: transparent;
+  color: inherit;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.reset-button:hover {
+  border-color: var(--accent, #38bdf8);
+  background: rgba(56, 189, 248, 0.1);
+}
