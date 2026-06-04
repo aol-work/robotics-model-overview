@@ -6,7 +6,7 @@
  */
 export const strings = {
   app: {
-    title: "Robotics World-Action Models",
+    title: "Robotics Foundation Models",
     subtitle: "An interactive overview",
   },
   foundationModel: {
@@ -24,14 +24,14 @@ export const strings = {
       hint: "Predicts future video from current video and action.",
       caption: "World Model",
       subtitle:
-        "Predict the next state of the world in terms of imagined observations (usually expressed as video) based on the last observations of the world, and optionally actions taken or a goal description.",
+        "Predict the next state of the world in terms of imagined observations (usually expressed as images) based on the last observations of the world, and optionally actions taken or a goal description.",
     },
     worldActionModel: {
       label: "World-Action Model",
       hint: "Maps video and language to robot actions.",
       caption: "World-Action Model",
       subtitle:
-        "Produce the next action, taking the last state of the world in terms of imagined observations and a goal description. Uses a next world-state prediction internally to do this.",
+        "Produce the next action, given the last state of the world in terms of imagined observations and a goal description. Uses a next world-state prediction internally to do this.",
     },
     vla: {
       label: "VLA",
@@ -111,7 +111,7 @@ export const strings = {
   io: {
     ports: {
       video: { emoji: "\u{1F3A5}", label: "Images" },
-      language: { emoji: "\u{1F4AC}", label: "Language" },
+      language: { emoji: "\u{1F4AC}", label: "Instruction" },
       action: { emoji: "\u{1F3AE}", label: "Action" },
       robot: { emoji: "\u{1F916}", label: "Action" },
     },
