@@ -49,9 +49,9 @@ export interface ArchNode {
 }
 
 /** Build a simple labeled-box visualization for a high-level model-type node. */
-function boxViz(label: string): ComponentType {
+function boxViz(label: string, subtitle?: string): ComponentType {
   return function ModelBoxViz() {
-    return <SimpleModelBox label={label} />;
+    return <SimpleModelBox label={label} subtitle={subtitle} />;
   };
 }
 
@@ -129,7 +129,7 @@ export const ROOT: ArchNode = {
       id: "worldModel",
       label: strings.nodes.worldModel.label,
       hint: strings.nodes.worldModel.hint,
-      Visualization: boxViz(strings.nodes.worldModel.label),
+      Visualization: boxViz(strings.nodes.worldModel.label, strings.nodes.worldModel.subtitle),
       io: {
         inputs: [
           { id: "video" },
@@ -144,7 +144,10 @@ export const ROOT: ArchNode = {
       id: "worldActionModel",
       label: strings.nodes.worldActionModel.label,
       hint: strings.nodes.worldActionModel.hint,
-      Visualization: boxViz(strings.nodes.worldActionModel.label),
+      Visualization: boxViz(
+        strings.nodes.worldActionModel.label,
+        strings.nodes.worldActionModel.subtitle,
+      ),
       io: { inputs: [{ id: "video" }, { id: "language" }], output: "robot" },
       children: WORLD_ACTION_CHILDREN,
     },
@@ -152,7 +155,7 @@ export const ROOT: ArchNode = {
       id: "vla",
       label: strings.nodes.vla.label,
       hint: strings.nodes.vla.hint,
-      Visualization: boxViz(strings.nodes.vla.label),
+      Visualization: boxViz(strings.nodes.vla.label, strings.nodes.vla.subtitle),
       io: { inputs: [{ id: "video" }, { id: "language" }], output: "robot" },
       children: [],
     },
@@ -160,7 +163,10 @@ export const ROOT: ArchNode = {
       id: "inverseKinematics",
       label: strings.nodes.inverseKinematics.label,
       hint: strings.nodes.inverseKinematics.hint,
-      Visualization: boxViz(strings.nodes.inverseKinematics.label),
+      Visualization: boxViz(
+        strings.nodes.inverseKinematics.label,
+        strings.nodes.inverseKinematics.subtitle,
+      ),
       io: { inputs: [{ id: "video" }], output: "robot" },
       children: [],
     },

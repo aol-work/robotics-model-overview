@@ -23,21 +23,29 @@ export const strings = {
       label: "World Model",
       hint: "Predicts future video from current video and action.",
       caption: "World Model",
+      subtitle:
+        "Predict the next state of the world in terms of imagined observations (usually expressed as video) based on the last observations of the world, and optionally actions taken or a goal description.",
     },
     worldActionModel: {
       label: "World-Action Model",
       hint: "Maps video and language to robot actions.",
       caption: "World-Action Model",
+      subtitle:
+        "Produce the next action, taking the last state of the world in terms of imagined observations and a goal description. Uses a next world-state prediction internally to do this.",
     },
     vla: {
       label: "VLA",
       hint: "Vision-Language-Action model: maps video and language to robot actions.",
       caption: "VLA",
+      subtitle:
+        "Produce the next action, taking the last state of the world in terms of imagined observations and a goal description.",
     },
     inverseKinematics: {
       label: "Inverse Kinematics Model",
       hint: "Maps video to robot actions via inverse kinematics.",
       caption: "Inverse Kinematics Model",
+      subtitle:
+        "Predict the action that would have effected the change of observation in the input.",
     },
     unified: {
       label: "Unified World Model",
