@@ -274,3 +274,56 @@
   border-color: var(--accent, #38bdf8);
   background: rgba(56, 189, 248, 0.1);
 }
+
+/* References box */
+.references {
+  width: 100%;
+  max-width: 820px;
+  box-sizing: border-box;
+  border: 1px solid var(--node-stroke, #475569);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  background: rgba(30, 41, 59, 0.4);
+  text-align: left;
+}
+
+.references__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.references__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.reference {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--muted, #94a3b8);
+}
+
+.reference__authors {
+  color: var(--muted, #94a3b8);
+}
+
+.reference__paper {
+  color: var(--text, #e2e8f0);
+  font-weight: 700;
+}
+
+.reference__link {
+  color: var(--accent, #38bdf8);
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.reference__link:hover {
+  text-decoration: underline;
+}

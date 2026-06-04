@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import type { ReferenceId } from "../content/references";
 import { strings } from "../content/strings";
 import { CascadedShape } from "../components/CascadedShape";
 import { FoundationShape } from "../components/FoundationShape";
@@ -46,6 +47,8 @@ export interface ArchNode {
   Visualization: ComponentType;
   children: ArchNode[];
   io?: IoConfig;
+  /** Reference ids relevant to this node; gathered down the path for display. */
+  references?: ReferenceId[];
 }
 
 /** Build a simple labeled-box visualization for a high-level model-type node. */
@@ -124,6 +127,7 @@ export const ROOT: ArchNode = {
   label: strings.foundationModel.label,
   hint: strings.foundationModel.hoverPrompt,
   Visualization: FoundationShape,
+  references: ["wamSurvey", "wmRobotSurvey"],
   children: [
     {
       id: "worldModel",
@@ -138,6 +142,7 @@ export const ROOT: ArchNode = {
         ],
         output: "video",
       },
+      references: ["wmRobotSurvey"],
       children: [],
     },
     {
@@ -149,6 +154,7 @@ export const ROOT: ArchNode = {
         strings.nodes.worldActionModel.subtitle,
       ),
       io: { inputs: [{ id: "video" }, { id: "language" }], output: "robot" },
+      references: ["wamSurvey"],
       children: WORLD_ACTION_CHILDREN,
     },
     {
@@ -168,6 +174,7 @@ export const ROOT: ArchNode = {
         strings.nodes.inverseKinematics.subtitle,
       ),
       io: { inputs: [{ id: "video" }], output: "robot" },
+      references: ["motus"],
       children: [],
     },
   ],
@@ -217,4 +224,26 @@ export function ioForPath(path: string[]): IoConfig | null {
     if (chain[i].io) return chain[i].io!;
   }
   return ROOT.io ?? null;
+}
+
+/**
+ * The references relevant to a path. At the root (no selection) these are the
+ * foundation model's overview papers. Once a model type is selected, the list
+ * is the union of references along that selection chain (deduped), so each model
+ * type keeps its own specific list rather than always inheriting the overviews.
+ */
+export function referencesForPath(path: string[]): ReferenceId[] {
+  const ids: ReferenceId[] = [];
+  const collect = (node: ArchNode) => {
+    node.references?.forEach((id) => {
+      if (!ids.includes(id)) ids.push(id);
+    });
+  };
+  const chain = chainForPath(path);
+  if (chain.length === 0) {
+    collect(ROOT);
+  } else {
+    chain.forEach(collect);
+  }
+  return ids;
 }

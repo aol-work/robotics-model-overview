@@ -121,6 +121,10 @@ export const strings = {
     resetHint: "Go back and pick a different architecture",
     chipHint: "Click to jump to this selection (clears deeper choices)",
   },
+  references: {
+    title: "References",
+    arxivLabel: "arXiv",
+  },
 } as const;
 
 export type Strings = typeof strings;

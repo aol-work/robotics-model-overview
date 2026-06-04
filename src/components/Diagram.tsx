@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { childrenAtPath } from "../architecture/tree";
+import { childrenAtPath, referencesForPath } from "../architecture/tree";
 import { strings } from "../content/strings";
 import { ModelCanvas } from "./ModelCanvas";
+import { ReferencesPanel } from "./ReferencesPanel";
 import { STAGE, stageHeightForDepth } from "./shapes";
 
 /**
@@ -16,6 +17,7 @@ export function Diagram() {
   const depth = path.length;
   const hasChoices = childrenAtPath(path).length > 0;
   const stageHeight = stageHeightForDepth(depth, hasChoices);
+  const referenceIds = referencesForPath(path);
 
   const selectChild = (id: string) => setPath((prev) => [...prev, id]);
   // Breadcrumb index 0 is the root chip, index i (>0) is committed selection
@@ -70,6 +72,8 @@ export function Diagram() {
           {strings.controls.reset}
         </button>
       )}
+
+      <ReferencesPanel ids={referenceIds} />
     </div>
   );
 }
