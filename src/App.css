@@ -90,6 +90,22 @@
   dominant-baseline: middle;
 }
 
+/* Cascaded middle placeholder (becomes the RGB / latent image after a choice) */
+.placeholder__rect {
+  fill: var(--node-fill, #1e293b);
+  stroke: var(--accent, #38bdf8);
+  stroke-width: 2;
+  stroke-dasharray: 8 7;
+}
+
+.placeholder__mark {
+  fill: var(--muted, #94a3b8);
+  font-size: 80px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
 /* Arrow connecting cascaded sub-boxes / pipeline stages */
 .model-arrow {
   stroke: var(--accent, #38bdf8);

@@ -50,30 +50,48 @@ export function inputPortYs(n: number): number[] {
 /** Bottom edge of the main model box; everything else stacks below it. */
 export const BOX_BOTTOM = FOUNDATION_RECT.y + FOUNDATION_RECT.height;
 
-/* No outer padding: the cascaded sub-boxes fill the full model footprint so
- * their outer bounds line up with the general model box (and its I/O arrows). */
-const CASCADE_PADDING = 0;
-/** Horizontal gap between the two cascaded sub-boxes (leaves room for the arrow). */
-const CASCADE_GAP = 120;
+/** Side length of the cascaded middle placeholder (matches a pipeline thumbnail). */
+const CASCADE_MIDDLE_SIZE = 176;
+/** Gap on each side of the middle placeholder for its connector arrows. */
+const CASCADE_ARROW_GAP = 64;
 
-const subWidth = (FOUNDATION_RECT.width - CASCADE_PADDING * 2 - CASCADE_GAP) / 2;
-const subHeight = FOUNDATION_RECT.height - CASCADE_PADDING * 2;
-const subY = FOUNDATION_RECT.y + CASCADE_PADDING;
-const leftX = FOUNDATION_RECT.x + CASCADE_PADDING;
-const rightX = leftX + subWidth + CASCADE_GAP;
+const cascadeCx = FOUNDATION_RECT.x + FOUNDATION_RECT.width / 2;
+const cascadeCy = FOUNDATION_RECT.y + FOUNDATION_RECT.height / 2;
+const middleX = cascadeCx - CASCADE_MIDDLE_SIZE / 2;
+const leftRightEdge = middleX - CASCADE_ARROW_GAP;
+const rightLeftEdge = cascadeCx + CASCADE_MIDDLE_SIZE / 2 + CASCADE_ARROW_GAP;
+const footprintRight = FOUNDATION_RECT.x + FOUNDATION_RECT.width;
 
 /**
- * Cascaded layout: the single box is split into a left (world model) and right
- * (action model) sub-box of the same overall footprint, joined by an arrow.
+ * Cascaded layout: a left (world model) and right (action model) box filling the
+ * full footprint, with a thumbnail-sized placeholder between them. That middle
+ * square becomes the RGB / latent image once a generation subtype is chosen.
  */
 export const CASCADE = {
-  left: { x: leftX, y: subY, width: subWidth, height: subHeight, rx: 18 },
-  right: { x: rightX, y: subY, width: subWidth, height: subHeight, rx: 18 },
-  arrow: {
-    y: FOUNDATION_RECT.y + FOUNDATION_RECT.height / 2,
-    x1: leftX + subWidth,
-    x2: rightX,
+  left: {
+    x: FOUNDATION_RECT.x,
+    y: FOUNDATION_RECT.y,
+    width: leftRightEdge - FOUNDATION_RECT.x,
+    height: FOUNDATION_RECT.height,
+    rx: 18,
   },
+  right: {
+    x: rightLeftEdge,
+    y: FOUNDATION_RECT.y,
+    width: footprintRight - rightLeftEdge,
+    height: FOUNDATION_RECT.height,
+    rx: 18,
+  },
+  middle: {
+    x: middleX,
+    y: cascadeCy - CASCADE_MIDDLE_SIZE / 2,
+    size: CASCADE_MIDDLE_SIZE,
+    cx: cascadeCx,
+    cy: cascadeCy,
+  },
+  arrowY: cascadeCy,
+  leftArrow: { x1: leftRightEdge, x2: middleX },
+  rightArrow: { x1: middleX + CASCADE_MIDDLE_SIZE, x2: rightLeftEdge },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -99,7 +117,7 @@ export function chipY(index: number): number {
 
 export const CHOICE_BUTTON = {
   width: 240,
-  height: 64,
+  height: 76,
   gap: 40,
   /** Vertical gap between the chip stack (or box) and the choice row. */
   topGap: 30,
@@ -173,14 +191,17 @@ export function pipelineLayout(
   relativeWidths?: number[],
   options?: PipelineOptions,
 ): PipelineLayout {
-  const padding = options?.padding ?? 40;
+  // No horizontal padding by default: the first and last stages sit flush with
+  // the footprint edges, so the generic input/output arrows connect directly to
+  // them. Vertically centered on the box so the output arrow aligns with stages.
+  const padding = options?.padding ?? 0;
   const gap = options?.gap ?? 56;
   const height = options?.height ?? 300;
   const innerWidth = FOUNDATION_RECT.width - padding * 2 - gap * (count - 1);
   const weights = relativeWidths ?? Array(count).fill(1);
   const weightSum = weights.reduce((a, b) => a + b, 0);
 
-  const cy = FOUNDATION_RECT.y + FOUNDATION_RECT.height / 2 + 8;
+  const cy = FOUNDATION_RECT.y + FOUNDATION_RECT.height / 2;
   const y = cy - height / 2;
 
   const slots: PipelineSlot[] = [];

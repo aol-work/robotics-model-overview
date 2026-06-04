@@ -116,8 +116,31 @@ interface ChoiceButtonProps {
   onClick: () => void;
 }
 
+const CHOICE_FONT = 18;
+const CHOICE_LINE_HEIGHT = CHOICE_FONT * 1.2;
+
+/** Greedily wrap a choice label so long names fit inside the button width. */
+function wrapChoiceLabel(label: string): string[] {
+  const maxChars = Math.floor((CHOICE_BUTTON.width - 28) / (CHOICE_FONT * 0.56));
+  const lines: string[] = [];
+  let current = "";
+  for (const word of label.split(" ")) {
+    const candidate = current ? `${current} ${word}` : word;
+    if (candidate.length > maxChars && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = candidate;
+    }
+  }
+  if (current) lines.push(current);
+  return lines;
+}
+
 function ChoiceButton({ x, y, label, hint, active, onPreview, onClick }: ChoiceButtonProps) {
   const cx = x + CHOICE_BUTTON.width / 2;
+  const lines = wrapChoiceLabel(label);
+  const firstY = y + CHOICE_BUTTON.height / 2 - ((lines.length - 1) * CHOICE_LINE_HEIGHT) / 2;
   return (
     <g
       className={active ? "choice choice--active" : "choice"}
@@ -135,8 +158,12 @@ function ChoiceButton({ x, y, label, hint, active, onPreview, onClick }: ChoiceB
         rx={10}
         className="choice__rect"
       />
-      <text x={cx} y={y + CHOICE_BUTTON.height / 2} className="choice__label">
-        {label}
+      <text x={cx} y={firstY} className="choice__label">
+        {lines.map((line, i) => (
+          <tspan key={i} x={cx} dy={i === 0 ? 0 : CHOICE_LINE_HEIGHT}>
+            {line}
+          </tspan>
+        ))}
       </text>
     </g>
   );

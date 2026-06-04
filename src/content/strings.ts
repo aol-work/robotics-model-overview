@@ -68,7 +68,7 @@ export const strings = {
       caption: "Implicit Generation",
     },
     idmExtract: {
-      label: "Extract by Inverse Dynamics Model (IDM)",
+      label: "Inverse Dynamics Model (IDM)",
       hint: "A learned IDM extracts the action from the generated image.",
       caption: "Extract by IDM",
     },
@@ -91,7 +91,7 @@ export const strings = {
   /** Labels for the individual boxes inside the detailed pipeline views. */
   pipeline: {
     worldModel: "World Model",
-    actionModel: "Action Head",
+    actionModel: "Action Expert",
     actionExpert: "Action Expert",
     action: "Action",
     idm: "IDM",

@@ -46,7 +46,7 @@ interface PipelineProps {
 function Pipeline({ caption, stages }: PipelineProps) {
   const count = stages.length;
   const weights = stages.map((s) => s.weight ?? (s.kind === "thumb" ? 0.8 : 1.2));
-  const options: PipelineOptions = count >= 5 ? { gap: 30, padding: 30 } : {};
+  const options: PipelineOptions = count >= 5 ? { gap: 30 } : {};
   const { slots, arrowY } = pipelineLayout(count, weights, options);
 
   // Arrows connect to thumbnail square bounds, not the wider layout slot.
@@ -114,7 +114,9 @@ export function ExplicitPipeline() {
   );
 }
 
-/** Implicit generation: World Model -> Latent Image -> IDM -> Action. */
+/** Implicit generation: the Action box is omitted; the generic output arrow
+ * already leads to the Action port.
+ * World Model -> Latent Image -> IDM -> (Action). */
 export function ImplicitPipeline() {
   return (
     <Pipeline
@@ -123,14 +125,14 @@ export function ImplicitPipeline() {
         { kind: "box", label: strings.pipeline.worldModel },
         { kind: "thumb", variant: "latent" },
         { kind: "box", label: strings.pipeline.idm },
-        { kind: "box", label: strings.pipeline.action },
       ]}
     />
   );
 }
 
-/** Extract by IDM: the extractor becomes a learned IDM.
- * World Model -> RGB Image -> Learned IDM -> Action. */
+/** Extract by IDM: the extractor becomes a learned IDM. The Action box is
+ * omitted: the generic output arrow already leads to the Action port.
+ * World Model -> RGB Image -> Learned IDM -> (Action). */
 export function IdmExtractPipeline() {
   return (
     <Pipeline
@@ -139,14 +141,14 @@ export function IdmExtractPipeline() {
         { kind: "box", label: strings.pipeline.worldModel },
         { kind: "thumb", variant: "rgb" },
         { kind: "box", label: strings.pipeline.learnedIdm },
-        { kind: "box", label: strings.pipeline.action },
       ]}
     />
   );
 }
 
-/** Analytical extraction (parent view):
- * World Model -> RGB Image -> Analytical Extractor -> Action. */
+/** Analytical extraction (parent view). The Action box is omitted: the generic
+ * output arrow already leads to the Action port.
+ * World Model -> RGB Image -> Analytical Extractor -> (Action). */
 export function AnalyticalPipeline() {
   return (
     <Pipeline
@@ -155,13 +157,12 @@ export function AnalyticalPipeline() {
         { kind: "box", label: strings.pipeline.worldModel },
         { kind: "thumb", variant: "rgb" },
         { kind: "box", label: strings.pipeline.analyticalExtractor },
-        { kind: "box", label: strings.pipeline.action },
       ]}
     />
   );
 }
 
-/** Object poses: World Model -> RGB Image -> Object Poses -> Inverse Kinematics -> Action. */
+/** Object poses: World Model -> RGB Image -> Object Poses -> Inverse Kinematics -> (Action). */
 export function ObjectPosesPipeline() {
   return (
     <Pipeline
@@ -171,14 +172,13 @@ export function ObjectPosesPipeline() {
         { kind: "thumb", variant: "rgb" },
         { kind: "box", label: strings.pipeline.objectPoses },
         { kind: "box", label: strings.pipeline.inverseKinematics },
-        { kind: "box", label: strings.pipeline.action },
       ]}
     />
   );
 }
 
 /** Optical flow: World Model -> RGB Image -> Optical Flow ->
- * End-Effector Position Extractor -> Inverse Kinematics -> Action. */
+ * End-Effector Position Extractor -> Inverse Kinematics -> (Action). */
 export function OpticalFlowPipeline() {
   return (
     <Pipeline
@@ -189,7 +189,6 @@ export function OpticalFlowPipeline() {
         { kind: "thumb", variant: "flow" },
         { kind: "box", label: strings.pipeline.eePositionExtractor },
         { kind: "box", label: strings.pipeline.inverseKinematics },
-        { kind: "box", label: strings.pipeline.action },
       ]}
     />
   );
