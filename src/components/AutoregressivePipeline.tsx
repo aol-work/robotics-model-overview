@@ -1,6 +1,7 @@
 import { strings } from "../content/strings";
 import { PipelineArrow, PipelineBox } from "./PipelineParts";
-import { FOUNDATION_RECT, pipelineLayout } from "./shapes";
+import { UnifiedFrame } from "./UnifiedFrame";
+import { pipelineLayout, UNIFIED_INNER } from "./shapes";
 import type { PipelineSlot } from "./shapes";
 
 const TOKEN_SIZE = 28;
@@ -109,23 +110,19 @@ function OutputTokensBlock({ slot }: { slot: PipelineSlot }) {
  * through a transformer, and produce an output token sequence (with action tokens).
  */
 export function AutoregressivePipeline() {
-  const { slots, arrowY } = pipelineLayout(3, [1.35, 1, 1.25]);
+  const { slots, arrowY } = pipelineLayout(3, [1.35, 1, 1.25], { bounds: UNIFIED_INNER });
   const [input, transformer, output] = slots;
-  const cx = FOUNDATION_RECT.x + FOUNDATION_RECT.width / 2;
-  const captionY = FOUNDATION_RECT.y + 32;
 
   return (
-    <g className="shape shape--autoregressive">
-      <text x={cx} y={captionY} className="model-box__caption">
-        {strings.nodes.autoregressive.caption}
-      </text>
+    <UnifiedFrame subtypeCaption={strings.nodes.autoregressive.caption}>
+      <g className="shape shape--autoregressive">
+        <InputTokensBlock slot={input} />
+        <PipelineBox slot={transformer} label={strings.pipeline.transformer} />
+        <OutputTokensBlock slot={output} />
 
-      <InputTokensBlock slot={input} />
-      <PipelineBox slot={transformer} label={strings.pipeline.transformer} />
-      <OutputTokensBlock slot={output} />
-
-      <PipelineArrow from={input} to={transformer} y={arrowY} />
-      <PipelineArrow from={transformer} to={output} y={arrowY} />
-    </g>
+        <PipelineArrow from={input} to={transformer} y={arrowY} />
+        <PipelineArrow from={transformer} to={output} y={arrowY} />
+      </g>
+    </UnifiedFrame>
   );
 }

@@ -4,9 +4,9 @@ import { strings } from "../content/strings";
 import { CascadedShape } from "../components/CascadedShape";
 import { FoundationShape } from "../components/FoundationShape";
 import { AutoregressivePipeline } from "../components/AutoregressivePipeline";
+import { DiffusionPipeline } from "../components/DiffusionPipeline";
 import {
   AnalyticalPipeline,
-  DiffusionPipeline,
   ExplicitPipeline,
   IdmExtractPipeline,
   ImplicitPipeline,

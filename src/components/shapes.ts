@@ -182,13 +182,36 @@ export interface PipelineLayout {
   arrowY: number;
 }
 
+/** Rectangle used as the layout bounds for a horizontal pipeline. */
+export interface LayoutBounds {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+/** Space below the "Unified" caption reserved before inner pipeline content. */
+export const UNIFIED_TOP_MARGIN = 64;
+/** Horizontal inset so inner stages sit slightly inside the outer unified box. */
+export const UNIFIED_HORIZONTAL_INSET = 24;
+
+/** Inner content area for unified subtypes (autoregressive, diffusion). */
+export const UNIFIED_INNER: LayoutBounds = {
+  x: FOUNDATION_RECT.x + UNIFIED_HORIZONTAL_INSET,
+  y: FOUNDATION_RECT.y + UNIFIED_TOP_MARGIN,
+  width: FOUNDATION_RECT.width - UNIFIED_HORIZONTAL_INSET * 2,
+  height: FOUNDATION_RECT.height - UNIFIED_TOP_MARGIN - 12,
+};
+
 export interface PipelineOptions {
-  /** Outer horizontal padding inside the box footprint. */
+  /** Outer horizontal padding inside the layout bounds. */
   padding?: number;
   /** Gap between stages (also where connector arrows are drawn). */
   gap?: number;
   /** Stage box height. */
   height?: number;
+  /** Layout bounds (defaults to the full model footprint). */
+  bounds?: LayoutBounds;
 }
 
 /**
@@ -205,18 +228,19 @@ export function pipelineLayout(
   // No horizontal padding by default: the first and last stages sit flush with
   // the footprint edges, so the generic input/output arrows connect directly to
   // them. Vertically centered on the box so the output arrow aligns with stages.
+  const bounds = options?.bounds ?? FOUNDATION_RECT;
   const padding = options?.padding ?? 0;
   const gap = options?.gap ?? 56;
-  const height = options?.height ?? 300;
-  const innerWidth = FOUNDATION_RECT.width - padding * 2 - gap * (count - 1);
+  const height = options?.height ?? Math.min(300, bounds.height - 8);
+  const innerWidth = bounds.width - padding * 2 - gap * (count - 1);
   const weights = relativeWidths ?? Array(count).fill(1);
   const weightSum = weights.reduce((a, b) => a + b, 0);
 
-  const cy = FOUNDATION_RECT.y + FOUNDATION_RECT.height / 2;
+  const cy = bounds.y + bounds.height / 2;
   const y = cy - height / 2;
 
   const slots: PipelineSlot[] = [];
-  let cursor = FOUNDATION_RECT.x + padding;
+  let cursor = bounds.x + padding;
   for (let i = 0; i < count; i++) {
     const width = (innerWidth * weights[i]) / weightSum;
     slots.push({

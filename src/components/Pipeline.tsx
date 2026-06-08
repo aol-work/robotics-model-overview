@@ -1,5 +1,5 @@
 import { strings } from "../content/strings";
-import { PipelineArrow, PipelineBox } from "./PipelineParts";
+import { OptionalImagesOutputArrow, PipelineArrow, PipelineBox } from "./PipelineParts";
 import {
   FlowThumbnail,
   LatentThumbnail,
@@ -67,12 +67,19 @@ function Pipeline({ caption, stages }: PipelineProps) {
 
   const cx = FOUNDATION_RECT.x + FOUNDATION_RECT.width / 2;
   const captionY = FOUNDATION_RECT.y + 32;
+  const imageStageIndex = stages.findIndex(
+    (s) => s.kind === "thumb" && (s.variant === "rgb" || s.variant === "latent"),
+  );
 
   return (
     <g className="shape shape--pipeline">
       <text x={cx} y={captionY} className="model-box__caption">
         {caption}
       </text>
+
+      {imageStageIndex >= 0 && (
+        <OptionalImagesOutputArrow thumb={connectors[imageStageIndex].slot} />
+      )}
 
       {stages.map((stage, i) => {
         if (stage.kind === "thumb") {
@@ -143,20 +150,6 @@ export function ImplicitPipeline() {
         { kind: "box", label: strings.pipeline.worldModel },
         { kind: "thumb", variant: "latent" },
         { kind: "box", label: strings.pipeline.idm },
-      ]}
-    />
-  );
-}
-
-/** Unified diffusion: the model denoises an RGB image, from which the action is
- * read. World Model -> Noised Image -> (Action). */
-export function DiffusionPipeline() {
-  return (
-    <Pipeline
-      caption={strings.nodes.diffusion.caption}
-      stages={[
-        { kind: "box", label: strings.pipeline.worldModel },
-        { kind: "thumb", variant: "noisyRgb" },
       ]}
     />
   );

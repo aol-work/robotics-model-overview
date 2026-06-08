@@ -1,4 +1,7 @@
-import type { PipelineSlot } from "./shapes";
+import { FOUNDATION_RECT, IO, outputPortYs, type PipelineSlot } from "./shapes";
+
+/** Horizontal route for optional image-output arrows, kept below the caption. */
+const CAPTION_SAFE_Y = FOUNDATION_RECT.y + 58;
 
 /**
  * Split a label into lines that fit `maxChars` per line. Spaces and hyphens are
@@ -86,6 +89,37 @@ export function PipelineArrow({ from, to, y }: PipelineArrowProps) {
       y2={y}
       className="model-arrow"
       markerEnd="url(#arrowhead)"
+    />
+  );
+}
+
+/**
+ * Optional greyed route from an RGB / latent thumbnail to the optional Images
+ * output port. Runs above the main action pipeline (below the caption).
+ */
+export function OptionalImagesOutputArrow({ thumb }: { thumb: PipelineSlot }) {
+  const imagesOutputY = outputPortYs(2)[0];
+  const endX = IO.outputX;
+  const startX = thumb.cx;
+  const startY = thumb.y;
+  // StackedFrames top is cy - fs/2 - off (46/2 + 10); stop arrow tip above it.
+  const imagesArrowEndY = imagesOutputY - 39;
+
+  const points = [
+    [startX, startY],
+    [startX, CAPTION_SAFE_Y],
+    [endX, CAPTION_SAFE_Y],
+    [endX, imagesArrowEndY],
+  ]
+    .map(([x, y]) => `${x},${y}`)
+    .join(" ");
+
+  return (
+    <polyline
+      points={points}
+      fill="none"
+      className="io-arrow io-arrow--optional"
+      markerEnd="url(#arrowhead-muted)"
     />
   );
 }

@@ -100,14 +100,16 @@ export function IoPorts({ inputs, outputs }: IoPortsProps) {
       {outputs.map((output, i) => (
         <g key={`out-${output.id}-${i}`}>
           <Port x={IO.outputX} y={outputYs[i]} id={output.id} optional={output.optional} />
-          <line
-            x1={IO.boxRight}
-            y1={outputYs[i]}
-            x2={IO.outputX - 60}
-            y2={outputYs[i]}
-            className={output.optional ? "io-arrow io-arrow--optional" : "io-arrow"}
-            markerEnd={output.optional ? "url(#arrowhead-muted)" : "url(#arrowhead)"}
-          />
+          {!output.optional && (
+            <line
+              x1={IO.boxRight}
+              y1={outputYs[i]}
+              x2={IO.outputX - 60}
+              y2={outputYs[i]}
+              className="io-arrow"
+              markerEnd="url(#arrowhead)"
+            />
+          )}
         </g>
       ))}
     </g>

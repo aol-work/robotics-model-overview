@@ -90,6 +90,14 @@
   dominant-baseline: middle;
 }
 
+.unified-frame__subtype {
+  fill: var(--muted, #94a3b8);
+  font-size: 18px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
 /* Autoregressive token block */
 .token {
   fill: var(--node-fill, #1e293b);
@@ -255,6 +263,8 @@
   stroke: var(--node-stroke, #475569);
   stroke-width: 3;
   stroke-dasharray: 8 7;
+  stroke-linejoin: round;
+  stroke-linecap: round;
   opacity: 0.5;
 }
 
