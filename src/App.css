@@ -58,6 +58,36 @@
   stroke: var(--accent, #38bdf8);
 }
 
+/* Subtle traveling highlight on the empty-state foundation box */
+.foundation-hint-ring {
+  fill: none;
+  stroke: var(--accent, #38bdf8);
+  stroke-width: 2;
+  opacity: 0.35;
+  pointer-events: none;
+  stroke-dasharray: 6 94;
+  animation: foundation-hint-travel 7s linear infinite;
+}
+
+.model:hover .foundation-hint-ring {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+@keyframes foundation-hint-travel {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .foundation-hint-ring {
+    animation: none;
+    opacity: 0.25;
+    stroke-dasharray: none;
+  }
+}
+
 .model-box__label {
   fill: var(--node-text, #f8fafc);
   font-size: 34px;

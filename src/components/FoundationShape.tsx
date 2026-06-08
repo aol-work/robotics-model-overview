@@ -19,6 +19,15 @@ export function FoundationShape() {
         rx={FOUNDATION_RECT.rx}
         className="model-box__rect"
       />
+      <rect
+        x={FOUNDATION_RECT.x}
+        y={FOUNDATION_RECT.y}
+        width={FOUNDATION_RECT.width}
+        height={FOUNDATION_RECT.height}
+        rx={FOUNDATION_RECT.rx}
+        pathLength={100}
+        className="foundation-hint-ring"
+      />
       <text x={cx} y={cy - 12} className="model-box__label">
         {strings.foundationModel.label}
       </text>
