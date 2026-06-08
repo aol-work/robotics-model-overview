@@ -24,21 +24,22 @@ export const strings = {
       hint: "Predicts future video from current video and action.",
       caption: "World Model",
       subtitle:
-        "Predict the next state of the world in terms of imagined observations (usually expressed as images) based on the last observations of the world, and optionally actions taken or a goal description.",
+        "Predict the next state of the world in terms of imagined observations (usually expressed as images) based on the last observations of the world, and optionally actions taken or a goal description. Used for simulation, policy training, and long-term planning.",
     },
     worldActionModel: {
       label: "World-Action Model (WAM)",
-      hint: "Maps video and language to robot actions.",
+      hint: "Maps video and language to robot actions. Sometimes also called 'world models for policy'.",
       caption: "World-Action Model",
       subtitle:
-        "Produce the next action, given the last state of the world in terms of imagined observations and a goal description. Uses a next world-state prediction internally to do this (which can sometimes optionally be rendered).",
+        "Used as policies. Produce the next action, given the last state of the world in terms of imagined observations and a goal description. Uses a next world-state prediction internally to do this (which can sometimes optionally be rendered).",
+   
     },
     vla: {
       label: "VLA",
       hint: "Vision-Language-Action model: maps video and language to robot actions.",
       caption: "VLA",
       subtitle:
-        "Produce the next action, taking the last state of the world in terms of imagined observations and a goal description.",
+        "Used as policies. Produce the next action, taking the last state of the world in terms of imagined observations and a goal description.",
     },
     inverseKinematics: {
       label: "Inverse Kinematics Model",
