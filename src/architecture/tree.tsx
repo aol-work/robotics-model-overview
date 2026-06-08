@@ -97,6 +97,7 @@ const WORLD_ACTION_CHILDREN: ArchNode[] = [
             label: strings.nodes.mixtureOfTransformers.label,
             hint: strings.nodes.mixtureOfTransformers.hint,
             Visualization: MixtureOfTransformersPipeline,
+            references: ["motus"],
             children: [],
           },
         ],
