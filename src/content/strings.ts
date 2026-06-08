@@ -62,8 +62,18 @@ export const strings = {
     },
     diffusion: {
       label: "Diffusion Based",
-      hint: "Denoise a generated RGB image, from which the action is read.",
+      hint: "Denoise actions (and optionally images) with a diffusion transformer.",
       caption: "Diffusion Based",
+    },
+    unifiedStream: {
+      label: "Unified Stream",
+      hint: "Vision and action encoders feed a single diffusion transformer.",
+      caption: "Unified Stream",
+    },
+    mixtureOfTransformers: {
+      label: "Mixture of Transformers (MoT)",
+      hint: "Two diffusion transformers exchange information via cross-attention.",
+      caption: "MoT",
     },
     cascaded: {
       label: "Cascaded",
@@ -123,6 +133,10 @@ export const strings = {
     imageTokens: "Image tokens",
     languageTokens: "Language tokens",
     transformer: "Transformer",
+    visionEncoder: "Vision Encoder",
+    actionEncoder: "Action Encoder",
+    diffusionTransformer: "Diffusion Transformer",
+    crossAttention: "Cross-Attention",
     outputTokens: "Output",
     actionToken: "action",
   },

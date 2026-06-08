@@ -160,6 +160,19 @@
 }
 
 /* Arrow connecting cascaded sub-boxes / pipeline stages */
+.cross-attn__rect {
+  fill: rgba(168, 85, 247, 0.22);
+  stroke: #a855f7;
+  stroke-width: 2;
+}
+
+.cross-attn__label {
+  fill: #e9d5ff;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
 .model-arrow {
   stroke: var(--accent, #38bdf8);
   stroke-width: 5;

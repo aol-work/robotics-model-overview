@@ -4,7 +4,11 @@ import { strings } from "../content/strings";
 import { CascadedShape } from "../components/CascadedShape";
 import { FoundationShape } from "../components/FoundationShape";
 import { AutoregressivePipeline } from "../components/AutoregressivePipeline";
-import { DiffusionPipeline } from "../components/DiffusionPipeline";
+import {
+  DiffusionShape,
+  MixtureOfTransformersPipeline,
+  UnifiedStreamPipeline,
+} from "../components/DiffusionPipeline";
 import {
   AnalyticalPipeline,
   ExplicitPipeline,
@@ -79,8 +83,23 @@ const WORLD_ACTION_CHILDREN: ArchNode[] = [
         id: "diffusion",
         label: strings.nodes.diffusion.label,
         hint: strings.nodes.diffusion.hint,
-        Visualization: DiffusionPipeline,
-        children: [],
+        Visualization: DiffusionShape,
+        children: [
+          {
+            id: "unifiedStream",
+            label: strings.nodes.unifiedStream.label,
+            hint: strings.nodes.unifiedStream.hint,
+            Visualization: UnifiedStreamPipeline,
+            children: [],
+          },
+          {
+            id: "mixtureOfTransformers",
+            label: strings.nodes.mixtureOfTransformers.label,
+            hint: strings.nodes.mixtureOfTransformers.hint,
+            Visualization: MixtureOfTransformersPipeline,
+            children: [],
+          },
+        ],
       },
     ],
   },
