@@ -221,7 +221,7 @@ export const ROOT: ArchNode = {
         inputs: [{ id: "video" }, { id: "language" }],
         outputs: [{ id: "video", optional: true }, { id: "robot" }],
       },
-      references: ["wamSurvey"],
+      references: ["wamSurvey", "wmRobotSurvey"],
       children: WORLD_ACTION_CHILDREN,
     },
     {
