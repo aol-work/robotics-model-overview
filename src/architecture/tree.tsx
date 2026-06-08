@@ -183,6 +183,7 @@ export const ROOT: ArchNode = {
       hint: strings.nodes.vla.hint,
       Visualization: boxViz(strings.nodes.vla.label, strings.nodes.vla.subtitle),
       io: { inputs: [{ id: "video" }, { id: "language" }], outputs: [{ id: "robot" }] },
+      references: ["gr00tN1", "pi0"],
       children: [],
     },
     {

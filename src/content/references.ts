@@ -29,6 +29,16 @@ export const references = {
     title: "Motus: A Unified Latent Action World Model",
     arxivId: "2512.13030",
   },
+  gr00tN1: {
+    authors: "Johan Bjorck et al.",
+    title: "GR00T N1: An Open Foundation Model for Generalist Humanoid Robots",
+    arxivId: "2503.14734",
+  },
+  pi0: {
+    authors: "Kevin Black et al.",
+    title: "π₀: A Vision-Language-Action Flow Model for General Robot Control",
+    arxivId: "2410.24164",
+  },
 } as const satisfies Record<string, Reference>;
 
 export type ReferenceId = keyof typeof references;
