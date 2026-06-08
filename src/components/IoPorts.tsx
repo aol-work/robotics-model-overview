@@ -106,7 +106,7 @@ export function IoPorts({ inputs, outputs }: IoPortsProps) {
               y1={outputYs[i]}
               x2={IO.outputX - 60}
               y2={outputYs[i]}
-              className="io-arrow"
+              className="model-arrow"
               markerEnd="url(#arrowhead)"
             />
           )}

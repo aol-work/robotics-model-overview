@@ -19,6 +19,10 @@ import {
 } from "../components/Pipeline";
 import { SimpleModelBox } from "../components/SimpleModelBox";
 import { UnifiedShape } from "../components/UnifiedShape";
+import {
+  ActionConditionedWorldModelPipeline,
+  LanguageConditionedWorldModelPipeline,
+} from "../components/WorldModelPipeline";
 
 /** A model input/output port identifier (keys of strings.io.ports). */
 export type PortId = keyof typeof strings.io.ports;
@@ -180,7 +184,30 @@ export const ROOT: ArchNode = {
         outputs: [{ id: "video" }],
       },
       references: ["wmRobotSurvey"],
-      children: [],
+      children: [
+        {
+          id: "actionConditioned",
+          label: strings.nodes.actionConditioned.label,
+          hint: strings.nodes.actionConditioned.hint,
+          Visualization: ActionConditionedWorldModelPipeline,
+          io: {
+            inputs: [{ id: "video" }, { id: "action" }],
+            outputs: [{ id: "video" }],
+          },
+          children: [],
+        },
+        {
+          id: "languageConditioned",
+          label: strings.nodes.languageConditioned.label,
+          hint: strings.nodes.languageConditioned.hint,
+          Visualization: LanguageConditionedWorldModelPipeline,
+          io: {
+            inputs: [{ id: "video" }, { id: "language" }],
+            outputs: [{ id: "video" }],
+          },
+          children: [],
+        },
+      ],
     },
     {
       id: "worldActionModel",

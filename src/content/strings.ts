@@ -21,10 +21,20 @@ export const strings = {
   nodes: {
     worldModel: {
       label: "World Model (WM)",
-      hint: "Predicts future video from current video and action.",
+      hint: "Predicts future images from current images, conditioned on action or language.",
       caption: "World Model",
       subtitle:
         "Predict the next state of the world in terms of imagined observations (usually expressed as images) based on the last observations of the world, and optionally actions taken or a goal description. Used for simulation, policy training, and long-term planning.",
+    },
+    actionConditioned: {
+      label: "Action-Conditioned",
+      hint: "Encode the action and condition a video backbone to predict the next image.",
+      caption: "Action-Conditioned",
+    },
+    languageConditioned: {
+      label: "Language-Conditioned",
+      hint: "Encode the instruction and condition a video backbone to predict the next image.",
+      caption: "Language-Conditioned",
     },
     worldActionModel: {
       label: "World-Action Model (WAM)",
@@ -135,6 +145,9 @@ export const strings = {
     transformer: "Transformer",
     visionEncoder: "Vision Encoder",
     actionEncoder: "Action Encoder",
+    languageEncoder: "Language Encoder",
+    videoBackbone: "Video Backbone",
+    conditioning: "conditioning",
     diffusionTransformer: "Diffusion Transformer",
     crossAttention: "Cross-Attention",
     outputTokens: "Output",
