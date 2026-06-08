@@ -20,14 +20,14 @@ export const strings = {
    */
   nodes: {
     worldModel: {
-      label: "World Model",
+      label: "World Model (WM)",
       hint: "Predicts future video from current video and action.",
       caption: "World Model",
       subtitle:
         "Predict the next state of the world in terms of imagined observations (usually expressed as images) based on the last observations of the world, and optionally actions taken or a goal description.",
     },
     worldActionModel: {
-      label: "World-Action Model",
+      label: "World-Action Model (WAM)",
       hint: "Maps video and language to robot actions.",
       caption: "World-Action Model",
       subtitle:
@@ -51,6 +51,8 @@ export const strings = {
       label: "Unified World Action-Model",
       hint: "A single model handles perception and action together.",
       caption: "Unified",
+      subtitle:
+        "A single model handles perception and action together.",
     },
     autoregressive: {
       label: "Autoregressive",
@@ -66,6 +68,8 @@ export const strings = {
       label: "Cascaded",
       hint: "Separate world model and action model, side by side.",
       caption: "Cascaded",
+      subtitle:
+        "A world model part produces the next observation, and a separate action head extracts the action.",
     },
     explicit: {
       label: "Explicit Generation",

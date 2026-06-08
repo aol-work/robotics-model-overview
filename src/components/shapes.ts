@@ -59,32 +59,38 @@ export const BOX_BOTTOM = FOUNDATION_RECT.y + FOUNDATION_RECT.height;
 const CASCADE_MIDDLE_SIZE = 176;
 /** Gap on each side of the middle placeholder for its connector arrows. */
 const CASCADE_ARROW_GAP = 64;
+/** Space reserved above the cascaded sub-boxes for the caption. */
+const CASCADE_TOP_MARGIN = 48;
+/** Space reserved below the cascaded sub-boxes for the wrapped subtitle. */
+const CASCADE_BOTTOM_MARGIN = 88;
 
 const cascadeCx = FOUNDATION_RECT.x + FOUNDATION_RECT.width / 2;
-const cascadeCy = FOUNDATION_RECT.y + FOUNDATION_RECT.height / 2;
+const cascadeContentY = FOUNDATION_RECT.y + CASCADE_TOP_MARGIN;
+const cascadeContentHeight = FOUNDATION_RECT.height - CASCADE_TOP_MARGIN - CASCADE_BOTTOM_MARGIN;
+const cascadeCy = cascadeContentY + cascadeContentHeight / 2;
 const middleX = cascadeCx - CASCADE_MIDDLE_SIZE / 2;
 const leftRightEdge = middleX - CASCADE_ARROW_GAP;
 const rightLeftEdge = cascadeCx + CASCADE_MIDDLE_SIZE / 2 + CASCADE_ARROW_GAP;
 const footprintRight = FOUNDATION_RECT.x + FOUNDATION_RECT.width;
 
 /**
- * Cascaded layout: a left (world model) and right (action model) box filling the
- * full footprint, with a thumbnail-sized placeholder between them. That middle
- * square becomes the RGB / latent image once a generation subtype is chosen.
+ * Cascaded layout: a left (world model) and right (action model) box within the
+ * footprint (below the caption, above the subtitle), with a thumbnail-sized
+ * placeholder between them.
  */
 export const CASCADE = {
   left: {
     x: FOUNDATION_RECT.x,
-    y: FOUNDATION_RECT.y,
+    y: cascadeContentY,
     width: leftRightEdge - FOUNDATION_RECT.x,
-    height: FOUNDATION_RECT.height,
+    height: cascadeContentHeight,
     rx: 18,
   },
   right: {
     x: rightLeftEdge,
-    y: FOUNDATION_RECT.y,
+    y: cascadeContentY,
     width: footprintRight - rightLeftEdge,
-    height: FOUNDATION_RECT.height,
+    height: cascadeContentHeight,
     rx: 18,
   },
   middle: {

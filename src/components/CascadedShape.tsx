@@ -1,20 +1,32 @@
 import { strings } from "../content/strings";
-import { CASCADE } from "./shapes";
+import { CASCADE, FOUNDATION_RECT } from "./shapes";
+import { SUBTITLE_LINE_HEIGHT, WrappedSubtitle, wrapText } from "./textLayout";
 
 /**
- * Cascaded rendering: a world model box and an action model box filling the
- * footprint, with a "?" placeholder between them. The placeholder marks where
- * the intermediate representation (RGB / latent image) appears once a generation
- * subtype (explicit / implicit) is chosen.
+ * Cascaded rendering: world model and action model boxes with a "?" placeholder
+ * between them, plus caption and subtitle explaining the architecture.
  */
 export function CascadedShape() {
   const { left, right, middle, arrowY, leftArrow, rightArrow } = CASCADE;
   const leftCx = left.x + left.width / 2;
   const rightCx = right.x + right.width / 2;
   const cy = left.y + left.height / 2;
+  const cx = FOUNDATION_RECT.x + FOUNDATION_RECT.width / 2;
+  const captionY = FOUNDATION_RECT.y + 26;
+  const subtitle = strings.nodes.cascaded.subtitle;
+  const subtitleLines = wrapText(subtitle, 66);
+  const subtitleY =
+    FOUNDATION_RECT.y +
+    FOUNDATION_RECT.height -
+    24 -
+    (subtitleLines.length - 1) * SUBTITLE_LINE_HEIGHT;
 
   return (
     <g className="shape shape--cascaded">
+      <text x={cx} y={captionY} className="model-box__caption">
+        {strings.nodes.cascaded.caption}
+      </text>
+
       <rect
         x={left.x}
         y={left.y}
@@ -67,6 +79,8 @@ export function CascadedShape() {
       <text x={rightCx} y={cy} className="model-box__label">
         {strings.pipeline.actionModel}
       </text>
+
+      <WrappedSubtitle text={subtitle} x={cx} y={subtitleY} />
     </g>
   );
 }
