@@ -1,6 +1,11 @@
 import { strings } from "../content/strings";
 import { PipelineArrow, PipelineBox } from "./PipelineParts";
-import { FlowThumbnail, LatentThumbnail, RgbThumbnail } from "./Thumbnail";
+import {
+  FlowThumbnail,
+  LatentThumbnail,
+  NoisyRgbThumbnail,
+  RgbThumbnail,
+} from "./Thumbnail";
 import {
   FOUNDATION_RECT,
   pipelineLayout,
@@ -8,9 +13,9 @@ import {
   type PipelineSlot,
 } from "./shapes";
 
-type ThumbVariant = "rgb" | "latent" | "flow";
+type ThumbVariant = "rgb" | "latent" | "flow" | "noisyRgb";
 
-/** A single stage in a horizontal pipeline: either a model box or a thumbnail. */
+/** A single stage in a horizontal pipeline: a model box or a thumbnail. */
 type Stage =
   | { kind: "box"; label: string; weight?: number }
   | { kind: "thumb"; variant: ThumbVariant; label?: string; weight?: number };
@@ -19,6 +24,7 @@ const THUMBNAILS = {
   rgb: RgbThumbnail,
   latent: LatentThumbnail,
   flow: FlowThumbnail,
+  noisyRgb: NoisyRgbThumbnail,
 } as const;
 
 /** Build a square slot (for a thumbnail) centered in a wider pipeline slot. */
@@ -92,6 +98,18 @@ function Pipeline({ caption, stages }: PipelineProps) {
           y={arrowY}
         />
       ))}
+
+      {stages[count - 1].kind === "thumb" && (
+        // Connect a thumbnail-ending pipeline to the footprint edge so it meets
+        // the generic output arrow that leads to the Action port.
+        <line
+          x1={connectors[count - 1].slot.x + connectors[count - 1].slot.width}
+          y1={arrowY}
+          x2={FOUNDATION_RECT.x + FOUNDATION_RECT.width}
+          y2={arrowY}
+          className="model-arrow"
+        />
+      )}
     </g>
   );
 }
@@ -125,6 +143,20 @@ export function ImplicitPipeline() {
         { kind: "box", label: strings.pipeline.worldModel },
         { kind: "thumb", variant: "latent" },
         { kind: "box", label: strings.pipeline.idm },
+      ]}
+    />
+  );
+}
+
+/** Unified diffusion: the model denoises an RGB image, from which the action is
+ * read. World Model -> Noised Image -> (Action). */
+export function DiffusionPipeline() {
+  return (
+    <Pipeline
+      caption={strings.nodes.diffusion.caption}
+      stages={[
+        { kind: "box", label: strings.pipeline.worldModel },
+        { kind: "thumb", variant: "noisyRgb" },
       ]}
     />
   );

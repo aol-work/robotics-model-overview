@@ -48,9 +48,19 @@ export const strings = {
         "Predict the action that would have effected the change of observation in the input.",
     },
     unified: {
-      label: "Unified World Model",
+      label: "Unified World Action-Model",
       hint: "A single model handles perception and action together.",
       caption: "Unified",
+    },
+    autoregressive: {
+      label: "Autoregressive",
+      hint: "Generate a token sequence; some of the tokens are actions.",
+      caption: "Autoregressive",
+    },
+    diffusion: {
+      label: "Diffusion Based",
+      hint: "Denoise a generated RGB image, from which the action is read.",
+      caption: "Diffusion Based",
     },
     cascaded: {
       label: "Cascaded",
@@ -103,6 +113,13 @@ export const strings = {
     rgbImage: "RGB Image",
     latentImage: "Latent Image",
     opticalFlow: "Optical Flow",
+    noisedImage: "Action (denoising)",
+    inputTokens: "Input tokens",
+    imageTokens: "Image tokens",
+    languageTokens: "Language tokens",
+    transformer: "Transformer",
+    outputTokens: "Output",
+    actionToken: "action",
   },
   /**
    * Reusable model input/output ports. Which ports a node shows is defined in

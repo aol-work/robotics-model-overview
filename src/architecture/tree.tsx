@@ -3,8 +3,10 @@ import type { ReferenceId } from "../content/references";
 import { strings } from "../content/strings";
 import { CascadedShape } from "../components/CascadedShape";
 import { FoundationShape } from "../components/FoundationShape";
+import { AutoregressivePipeline } from "../components/AutoregressivePipeline";
 import {
   AnalyticalPipeline,
+  DiffusionPipeline,
   ExplicitPipeline,
   IdmExtractPipeline,
   ImplicitPipeline,
@@ -65,7 +67,22 @@ const WORLD_ACTION_CHILDREN: ArchNode[] = [
     label: strings.nodes.unified.label,
     hint: strings.nodes.unified.hint,
     Visualization: UnifiedShape,
-    children: [],
+    children: [
+      {
+        id: "autoregressive",
+        label: strings.nodes.autoregressive.label,
+        hint: strings.nodes.autoregressive.hint,
+        Visualization: AutoregressivePipeline,
+        children: [],
+      },
+      {
+        id: "diffusion",
+        label: strings.nodes.diffusion.label,
+        hint: strings.nodes.diffusion.hint,
+        Visualization: DiffusionPipeline,
+        children: [],
+      },
+    ],
   },
   {
     id: "cascaded",

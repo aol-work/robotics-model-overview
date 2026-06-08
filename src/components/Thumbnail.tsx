@@ -44,6 +44,56 @@ export function RgbThumbnail({ cx, cy, size, label = strings.pipeline.rgbImage }
   );
 }
 
+/* Deterministic pseudo-random in [0,1) for stable noise rendering. */
+function noise(i: number): number {
+  const x = Math.sin(i * 127.1) * 43758.5453;
+  return x - Math.floor(x);
+}
+
+/**
+ * Noised action thumbnail: a robot emoji under a grain overlay, signalling a
+ * (partially) denoised diffusion sample of the action rather than a clean image.
+ */
+export function NoisyRgbThumbnail({
+  cx,
+  cy,
+  size,
+  label = strings.pipeline.noisedImage,
+}: ThumbnailProps) {
+  const x = cx - size / 2;
+  const y = cy - size / 2;
+  const grid = 9;
+  const cell = size / grid;
+  const emojiSize = size * 0.62;
+
+  return (
+    <g className="thumbnail thumbnail--noisy">
+      <rect x={x} y={y} width={size} height={size} className="thumbnail__bg" />
+      <text x={cx} y={cy} className="thumbnail__emoji" style={{ fontSize: emojiSize }}>
+        {strings.io.ports.robot.emoji}
+      </text>
+      {Array.from({ length: grid * grid }, (_, i) => {
+        const col = i % grid;
+        const row = Math.floor(i / grid);
+        return (
+          <rect
+            key={i}
+            x={x + col * cell}
+            y={y + row * cell}
+            width={cell}
+            height={cell}
+            style={{ fill: noise(i + 1) > 0.5 ? "#ffffff" : "#000000", opacity: noise(i) * 0.5 }}
+          />
+        );
+      })}
+      <rect x={x} y={y} width={size} height={size} className="thumbnail__frame" />
+      <text x={cx} y={y + size + CAPTION_GAP} className="thumbnail__label">
+        {label}
+      </text>
+    </g>
+  );
+}
+
 /* Motion vectors for the optical-flow thumbnail, expressed in unit coordinates
  * (0..1) relative to the thumbnail box: [startX, startY, dirX, dirY]. */
 const FLOW_VECTORS: Array<[number, number, number, number]> = [

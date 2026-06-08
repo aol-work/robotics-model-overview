@@ -90,6 +90,51 @@
   dominant-baseline: middle;
 }
 
+/* Autoregressive token block */
+.token {
+  fill: var(--node-fill, #1e293b);
+  stroke: var(--node-stroke, #475569);
+  stroke-width: 2;
+}
+
+.token--action {
+  fill: var(--accent, #38bdf8);
+  stroke: var(--accent, #38bdf8);
+}
+
+.token--image {
+  fill: rgba(34, 197, 94, 0.25);
+  stroke: #22c55e;
+}
+
+.token--language {
+  fill: rgba(56, 189, 248, 0.2);
+  stroke: var(--accent, #38bdf8);
+}
+
+.tokens__caption {
+  fill: var(--muted, #94a3b8);
+  font-size: 22px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.tokens__legend {
+  fill: var(--muted, #94a3b8);
+  font-size: 20px;
+  text-anchor: start;
+  dominant-baseline: middle;
+}
+
+.tokens__row-label {
+  fill: var(--muted, #94a3b8);
+  font-size: 16px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
 /* Cascaded middle placeholder (becomes the RGB / latent image after a choice) */
 .placeholder__rect {
   fill: var(--node-fill, #1e293b);
@@ -138,6 +183,12 @@
 
 .thumbnail__bg {
   fill: var(--node-fill, #1e293b);
+}
+
+.thumbnail__emoji {
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
 }
 
 .thumbnail__flow-vector {
