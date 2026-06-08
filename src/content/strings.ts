@@ -7,7 +7,7 @@
 export const strings = {
   app: {
     title: "Robotics Foundation Models",
-    subtitle: "An interactive overview",
+    subtitle: "Alex's interactive overview",
   },
   foundationModel: {
     label: "Robotics Foundation Model",
