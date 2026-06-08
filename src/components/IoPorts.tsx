@@ -1,11 +1,11 @@
-import type { IoPort, PortId } from "../architecture/tree";
+import type { IoPort } from "../architecture/tree";
 import { strings } from "../content/strings";
-import { IO, inputPortYs } from "./shapes";
+import { IO, inputPortYs, outputPortYs } from "./shapes";
 
 interface PortProps {
   x: number;
   y: number;
-  id: PortId;
+  id: IoPort["id"];
   optional?: boolean;
 }
 
@@ -69,43 +69,47 @@ function Port({ x, y, id, optional }: PortProps) {
 
 interface IoPortsProps {
   inputs: IoPort[];
-  output: PortId;
+  outputs: IoPort[];
 }
 
 /**
  * The model's input and output ports, drawn in the stage gutters around the main
- * box: inputs feed in from the left, the output comes out on the right. Which
- * ports are shown (and which are optional/greyed) depends on the selected or
- * previewed model type (see the tree).
+ * box: inputs feed in from the left, outputs leave on the right. Optional ports
+ * are greyed out (may or may not be active).
  */
-export function IoPorts({ inputs, output }: IoPortsProps) {
-  const ys = inputPortYs(inputs.length);
+export function IoPorts({ inputs, outputs }: IoPortsProps) {
+  const inputYs = inputPortYs(inputs.length);
+  const outputYs = outputPortYs(outputs.length);
 
   return (
     <g className="io">
       {inputs.map((input, i) => (
-        <g key={input.id}>
-          <Port x={IO.inputX} y={ys[i]} id={input.id} optional={input.optional} />
+        <g key={`in-${input.id}-${i}`}>
+          <Port x={IO.inputX} y={inputYs[i]} id={input.id} optional={input.optional} />
           <line
             x1={IO.inputX + 60}
-            y1={ys[i]}
+            y1={inputYs[i]}
             x2={IO.boxLeft}
-            y2={ys[i]}
+            y2={inputYs[i]}
             className={input.optional ? "io-arrow io-arrow--optional" : "io-arrow"}
             markerEnd={input.optional ? "url(#arrowhead-muted)" : "url(#arrowhead)"}
           />
         </g>
       ))}
 
-      <Port x={IO.outputX} y={IO.robotY} id={output} />
-      <line
-        x1={IO.boxRight}
-        y1={IO.robotY}
-        x2={IO.outputX - 60}
-        y2={IO.robotY}
-        className="io-arrow"
-        markerEnd="url(#arrowhead)"
-      />
+      {outputs.map((output, i) => (
+        <g key={`out-${output.id}-${i}`}>
+          <Port x={IO.outputX} y={outputYs[i]} id={output.id} optional={output.optional} />
+          <line
+            x1={IO.boxRight}
+            y1={outputYs[i]}
+            x2={IO.outputX - 60}
+            y2={outputYs[i]}
+            className={output.optional ? "io-arrow io-arrow--optional" : "io-arrow"}
+            markerEnd={output.optional ? "url(#arrowhead-muted)" : "url(#arrowhead)"}
+          />
+        </g>
+      ))}
     </g>
   );
 }

@@ -47,6 +47,11 @@ export function inputPortYs(n: number): number[] {
   return Array.from({ length: n }, (_, i) => start + i * spacing);
 }
 
+/** Evenly spread Y positions for `n` output ports along the box's right side. */
+export function outputPortYs(n: number): number[] {
+  return inputPortYs(n);
+}
+
 /** Bottom edge of the main model box; everything else stacks below it. */
 export const BOX_BOTTOM = FOUNDATION_RECT.y + FOUNDATION_RECT.height;
 

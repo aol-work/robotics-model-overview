@@ -67,7 +67,7 @@ export function ModelCanvas({ path, onSelectChild, onNavigate }: ModelCanvasProp
 
   return (
     <>
-      {io && <IoPorts inputs={io.inputs} output={io.output} />}
+      {io && <IoPorts inputs={io.inputs} outputs={io.outputs} />}
 
       <g className="model" onMouseEnter={() => setHovered(true)} onMouseLeave={clearHover}>
       <rect

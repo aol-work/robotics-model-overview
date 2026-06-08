@@ -31,7 +31,7 @@ export const strings = {
       hint: "Maps video and language to robot actions.",
       caption: "World-Action Model",
       subtitle:
-        "Produce the next action, given the last state of the world in terms of imagined observations and a goal description. Uses a next world-state prediction internally to do this.",
+        "Produce the next action, given the last state of the world in terms of imagined observations and a goal description. Uses a next world-state prediction internally to do this (which can sometimes optionally be rendered).",
     },
     vla: {
       label: "VLA",

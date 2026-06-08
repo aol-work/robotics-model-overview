@@ -28,7 +28,7 @@ export interface IoPort {
 /** Which input/output ports a node exposes. Inherited by descendants. */
 export interface IoConfig {
   inputs: IoPort[];
-  output: PortId;
+  outputs: IoPort[];
 }
 
 /**
@@ -157,7 +157,7 @@ export const ROOT: ArchNode = {
           { id: "action", optional: true },
           { id: "language", optional: true },
         ],
-        output: "video",
+        outputs: [{ id: "video" }],
       },
       references: ["wmRobotSurvey"],
       children: [],
@@ -170,7 +170,10 @@ export const ROOT: ArchNode = {
         strings.nodes.worldActionModel.label,
         strings.nodes.worldActionModel.subtitle,
       ),
-      io: { inputs: [{ id: "video" }, { id: "language" }], output: "robot" },
+      io: {
+        inputs: [{ id: "video" }, { id: "language" }],
+        outputs: [{ id: "video", optional: true }, { id: "robot" }],
+      },
       references: ["wamSurvey"],
       children: WORLD_ACTION_CHILDREN,
     },
@@ -179,7 +182,7 @@ export const ROOT: ArchNode = {
       label: strings.nodes.vla.label,
       hint: strings.nodes.vla.hint,
       Visualization: boxViz(strings.nodes.vla.label, strings.nodes.vla.subtitle),
-      io: { inputs: [{ id: "video" }, { id: "language" }], output: "robot" },
+      io: { inputs: [{ id: "video" }, { id: "language" }], outputs: [{ id: "robot" }] },
       children: [],
     },
     {
@@ -190,7 +193,7 @@ export const ROOT: ArchNode = {
         strings.nodes.inverseKinematics.label,
         strings.nodes.inverseKinematics.subtitle,
       ),
-      io: { inputs: [{ id: "video" }], output: "robot" },
+      io: { inputs: [{ id: "video" }], outputs: [{ id: "robot" }] },
       references: ["motus"],
       children: [],
     },
