@@ -1,5 +1,5 @@
 import { FOUNDATION_RECT } from "./shapes";
-import { SUBTITLE_LINE_HEIGHT, wrapText } from "./textLayout";
+import { SUBTITLE_LINE_HEIGHT, wrapText } from "./textUtils";
 
 const LABEL_FONT = 34;
 const LABEL_SUBTITLE_GAP = 28;

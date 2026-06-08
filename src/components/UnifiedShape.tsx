@@ -1,6 +1,7 @@
 import { strings } from "../content/strings";
 import { FOUNDATION_RECT } from "./shapes";
-import { SUBTITLE_LINE_HEIGHT, WrappedSubtitle, wrapText } from "./textLayout";
+import { WrappedSubtitle } from "./WrappedSubtitle";
+import { SUBTITLE_LINE_HEIGHT, wrapText } from "./textUtils";
 
 /**
  * Unified world-action model: a single box with caption, world-model label, and

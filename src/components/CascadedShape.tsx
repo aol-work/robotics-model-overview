@@ -1,6 +1,7 @@
 import { strings } from "../content/strings";
 import { CASCADE, FOUNDATION_RECT } from "./shapes";
-import { SUBTITLE_LINE_HEIGHT, WrappedSubtitle, wrapText } from "./textLayout";
+import { WrappedSubtitle } from "./WrappedSubtitle";
+import { SUBTITLE_LINE_HEIGHT, wrapText } from "./textUtils";
 
 /**
  * Cascaded rendering: world model and action model boxes with a "?" placeholder
