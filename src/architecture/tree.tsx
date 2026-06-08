@@ -233,18 +233,6 @@ export const ROOT: ArchNode = {
       references: ["gr00tN1", "pi0"],
       children: [],
     },
-    {
-      id: "inverseKinematics",
-      label: strings.nodes.inverseKinematics.label,
-      hint: strings.nodes.inverseKinematics.hint,
-      Visualization: boxViz(
-        strings.nodes.inverseKinematics.label,
-        strings.nodes.inverseKinematics.subtitle,
-      ),
-      io: { inputs: [{ id: "video" }], outputs: [{ id: "robot" }] },
-      references: ["motus"],
-      children: [],
-    },
   ],
 };
 

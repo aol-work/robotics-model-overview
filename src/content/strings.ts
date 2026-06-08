@@ -51,13 +51,6 @@ export const strings = {
       subtitle:
         "Used as policies. Produce the next action, taking the last state of the world in terms of imagined observations and a goal description.",
     },
-    inverseKinematics: {
-      label: "Inverse Kinematics Model",
-      hint: "Maps video to robot actions via inverse kinematics.",
-      caption: "Inverse Kinematics Model",
-      subtitle:
-        "Predict the action that would have effected the change of observation in the input.",
-    },
     unified: {
       label: "Unified World Action-Model",
       hint: "A single model handles perception and action together.",
