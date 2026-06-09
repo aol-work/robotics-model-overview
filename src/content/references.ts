@@ -24,6 +24,12 @@ export const references = {
     title: "World Model for Robot Learning: A Comprehensive Survey",
     arxivId: "2605.00080",
   },
+  vlaSurvey: {
+    authors: "Kento Kawaharazuka et al.",
+    title:
+      "Vision-Language-Action Models for Robotics: A Review Towards Real-World Applications",
+    arxivId: "2510.07077",
+  },
   motus: {
     authors: "Hongzhe Bi et al.",
     title: "Motus: A Unified Latent Action World Model",

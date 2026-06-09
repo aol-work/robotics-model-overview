@@ -1,6 +1,10 @@
 # Robotics Foundation Models — Interactive Overview
 
-An vibe-coded interactive overview of robotics foundation model architectures.
+A vibe-coded interactive overview of robotics foundation model architectures,
+indebted to three overview papers that structure much of this taxonomy:
+[Bohan Hou et al., *World Model for Robot Learning: A Comprehensive Survey*](https://arxiv.org/abs/2605.00080);
+[Siyin Wang et al., *World Action Models: The Next Frontier in Embodied AI*](https://arxiv.org/abs/2605.12090);
+and [Kento Kawaharazuka et al., *Vision-Language-Action Models for Robotics: A Review Towards Real-World Applications*](https://arxiv.org/abs/2510.07077).
 You start with a single "Robotics Foundation Model" rectangle and click your way
 into the details. This is the first demo layer; visual polish and deeper layers
 come later.
