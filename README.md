@@ -1,4 +1,4 @@
-# Robotics World Models — Interactive Overview
+# Robotics Foundation Models — Interactive Overview
 
 An vibe-coded interactive overview of robotics foundation model architectures.
 You start with a single "Robotics Foundation Model" rectangle and click your way
