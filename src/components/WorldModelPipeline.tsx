@@ -30,11 +30,11 @@ function wmConditionedLayout(): {
   const backboneH = Math.min(280, contentH * 0.82);
 
   const encoder: PipelineSlot = {
-    x: FOUNDATION_RECT.x + 20,
+    x: FOUNDATION_RECT.x,
     y: condInputY - encoderH / 2,
     width: encoderW,
     height: encoderH,
-    cx: FOUNDATION_RECT.x + 20 + encoderW / 2,
+    cx: FOUNDATION_RECT.x + encoderW / 2,
     cy: condInputY,
   };
 

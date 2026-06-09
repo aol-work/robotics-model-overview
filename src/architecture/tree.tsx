@@ -18,6 +18,10 @@ import {
   OpticalFlowPipeline,
 } from "../components/Pipeline";
 import { SimpleModelBox } from "../components/SimpleModelBox";
+import {
+  AffordanceBasedVlaPipeline,
+  SensorimotorVlaPipeline,
+} from "../components/VlaPipeline";
 import { UnifiedShape } from "../components/UnifiedShape";
 import {
   ActionConditionedWorldModelPipeline,
@@ -231,7 +235,23 @@ export const ROOT: ArchNode = {
       Visualization: boxViz(strings.nodes.vla.label, strings.nodes.vla.subtitle),
       io: { inputs: [{ id: "video" }, { id: "language" }], outputs: [{ id: "robot" }] },
       references: ["gr00tN1", "pi0"],
-      children: [],
+      children: [
+        {
+          id: "affordanceBased",
+          label: strings.nodes.affordanceBased.label,
+          hint: strings.nodes.affordanceBased.hint,
+          Visualization: AffordanceBasedVlaPipeline,
+          references: ["voxPoser"],
+          children: [],
+        },
+        {
+          id: "sensorimotor",
+          label: strings.nodes.sensorimotor.label,
+          hint: strings.nodes.sensorimotor.hint,
+          Visualization: SensorimotorVlaPipeline,
+          children: [],
+        },
+      ],
     },
   ],
 };

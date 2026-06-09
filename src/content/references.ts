@@ -39,6 +39,11 @@ export const references = {
     title: "π₀: A Vision-Language-Action Flow Model for General Robot Control",
     arxivId: "2410.24164",
   },
+  voxPoser: {
+    authors: "Wenlong Huang et al.",
+    title: "VoxPoser: Composable 3D Value Maps for Robotic Manipulation with Language Models",
+    arxivId: "2307.05973",
+  },
 } as const satisfies Record<string, Reference>;
 
 export type ReferenceId = keyof typeof references;

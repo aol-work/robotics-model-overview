@@ -51,6 +51,16 @@ export const strings = {
       subtitle:
         "Used as policies. Produce the next action, taking the last state of the world in terms of imagined observations and a goal description.",
     },
+    affordanceBased: {
+      label: "Affordance-Based",
+      hint: "Extract visual affordances (scene properties), then predict the next action.",
+      caption: "Affordance-Based",
+    },
+    sensorimotor: {
+      label: "Sensorimotor",
+      hint: "Fuse vision and language into a joint representation for action prediction.",
+      caption: "Sensorimotor",
+    },
     unified: {
       label: "Unified World Action-Model",
       hint: "A single model handles perception and action together.",
@@ -121,6 +131,9 @@ export const strings = {
     worldModel: "World Model",
     actionModel: "Action Expert",
     actionExpert: "Action Expert",
+    actionHead: "Action Head",
+    visualAffordanceExtraction: "Visual Affordance Extraction (Scene Properties)",
+    jointRepresentation: "Joint Representation",
     action: "Action",
     idm: "IDM",
     learnedIdm: "Learned IDM",
