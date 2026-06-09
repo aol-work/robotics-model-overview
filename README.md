@@ -9,6 +9,8 @@ come later.
 
 *Example: Unified → Diffusion Based → Mixture of Transformers (MoT), with the Motus reference shown.*
 
+**Live demo:** https://aol-work.github.io/robotics-model-overview/
+
 ## Tech stack
 
 - [Vite](https://vite.dev/) + [React](https://react.dev/) + TypeScript
@@ -20,8 +22,10 @@ come later.
 npm install
 npm run dev      # start the local dev server (http://localhost:5173)
 npm run build    # type-check + produce static assets in dist/
-npm run preview  # preview the production build locally
+npm run preview  # preview the production build (open the /robotics-model-overview/ path)
 ```
+
+Pushes to `master` run lint, build, and deploy `dist/` to GitHub Pages via Actions.
 
 The `dist/` output is fully static and can be hosted on any static host
 (GitHub Pages, Netlify, Cloudflare Pages, etc.).
